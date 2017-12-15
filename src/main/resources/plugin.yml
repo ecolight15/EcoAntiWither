@@ -1,0 +1,8 @@
+name: EcoAntiWither
+main: jp.minecraftuser.ecoantiwither.EcoAntiWither
+version: 1.0
+depend: [EcoFramework]
+commands:
+  wither:
+    description: reload config.yml
+    usage: /wither reload
