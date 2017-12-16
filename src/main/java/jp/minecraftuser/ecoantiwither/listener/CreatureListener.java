@@ -1,6 +1,7 @@
 
 package jp.minecraftuser.ecoantiwither.listener;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
@@ -59,10 +60,11 @@ public class CreatureListener extends ListenerFrame{
             try {
                 SimpleDateFormat sd = new SimpleDateFormat("[yyyy/MM/dd HH:mm:ss.SSS]");
                 File file = new File(plg.getDataFolder().getAbsolutePath()+"/wither_log.txt");
-                FileWriter w = new FileWriter(file, true);
+                BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
                 String token_message = sd.format(new Date()) + sb.toString();
-                w.write(token_message + "\r\n");
-                w.close();
+                bw.write(token_message);
+                bw.newLine();
+                bw.close();
             } catch (Exception ex) {
                 log.warning("ファイル書き込みエラー検知");
                 log.warning(ex.getLocalizedMessage());

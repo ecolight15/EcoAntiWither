@@ -5,7 +5,7 @@ import jp.minecraftuser.ecoframework.ConfigFrame;
 import jp.minecraftuser.ecoframework.PluginFrame;
 
 /**
- * デフォルトコンフィグインスタンス
+ * デフォルトコンフィグクラス
  * @author ecolight
  */
 public class EcoAntiWitherConfig extends ConfigFrame{

@@ -1,9 +1,10 @@
 
 package jp.minecraftuser.ecoantiwither;
 
+import jp.minecraftuser.ecoantiwither.command.EcoAntiWitherCommand;
 import jp.minecraftuser.ecoframework.CommandFrame;
 import jp.minecraftuser.ecoframework.PluginFrame;
-import jp.minecraftuser.ecoantiwither.command.ReloadCommand;
+import jp.minecraftuser.ecoantiwither.command.EcoAntiWitherReloadCommand;
 import jp.minecraftuser.ecoantiwither.config.EcoAntiWitherConfig;
 import jp.minecraftuser.ecoantiwither.listener.CreatureListener;
 
@@ -19,7 +20,6 @@ public class EcoAntiWither extends PluginFrame{
     @Override
     public void onEnable() {
         initialize();
-        getLogger().info(getName()+" Enable");
     }
 
     /**
@@ -28,7 +28,6 @@ public class EcoAntiWither extends PluginFrame{
     @Override
     public void onDisable() {
         disable();
-        getLogger().info(getName()+" Disable");
     }
 
     /**
@@ -46,8 +45,8 @@ public class EcoAntiWither extends PluginFrame{
      */
     @Override
     public void initializeCommand() {
-        CommandFrame cmd = new ReloadCommand(this, "wither");
-        cmd.addCommand(new ReloadCommand(this, "reload"));
+        CommandFrame cmd = new EcoAntiWitherCommand(this, "wither");
+        cmd.addCommand(new EcoAntiWitherReloadCommand(this, "reload"));
         registerPluginCommand(cmd);
     }
 

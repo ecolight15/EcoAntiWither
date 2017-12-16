@@ -3,20 +3,21 @@ package jp.minecraftuser.ecoantiwither.command;
 
 import jp.minecraftuser.ecoframework.PluginFrame;
 import jp.minecraftuser.ecoframework.CommandFrame;
+import jp.minecraftuser.ecoframework.Utl;
 import org.bukkit.command.CommandSender;
 
 /**
  * リロードコマンドクラス
  * @author ecolight
  */
-public class ReloadCommand extends CommandFrame {
+public class EcoAntiWitherCommand extends CommandFrame {
 
     /**
      * コンストラクタ
      * @param plg_ プラグインインスタンス
      * @param name_ コマンド名
      */
-    public ReloadCommand(PluginFrame plg_, String name_) {
+    public EcoAntiWitherCommand(PluginFrame plg_, String name_) {
         super(plg_, name_);
         setAuthBlock(true);
         setAuthConsole(true);
@@ -28,7 +29,7 @@ public class ReloadCommand extends CommandFrame {
      */
     @Override
     public String getPermissionString() {
-        return "ecoantiwither.reload";
+        return "ecoantiwither";
     }
 
     /**
@@ -39,9 +40,7 @@ public class ReloadCommand extends CommandFrame {
      */
     @Override
     public boolean worker(CommandSender sender, String[] args) {
-        // リロード
-        conf.reload();
-        sender.sendMessage("[" + plg.getName()+"] コンフィグリロード");
+        Utl.sendPluginMessage(plg, sender, "パラメータが不足しています");
         return true;
     }
     
