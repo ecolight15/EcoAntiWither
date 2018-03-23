@@ -40,6 +40,9 @@ public class EcoAntiWitherReloadCommand extends CommandFrame {
      */
     @Override
     public boolean worker(CommandSender sender, String[] args) {
+        // パラメータチェック:0のみ
+        if (!checkRange(sender, args, 0, 0)) return true;
+
         // リロード
         conf.reload();
         Utl.sendPluginMessage(plg, sender, "設定ファイルを再読み込みしました");

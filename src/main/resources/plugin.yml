@@ -1,6 +1,6 @@
 name: EcoAntiWither
 main: jp.minecraftuser.ecoantiwither.EcoAntiWither
-version: 1.0
+version: ${project.version}
 depend: [EcoFramework]
 commands:
   wither:
