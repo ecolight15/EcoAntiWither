@@ -6,3 +6,8 @@ commands:
   wither:
     description: reload config.yml
     usage: /wither reload
+    permission: ecoantiwither
+  wither reload:
+    description: reload config.yml
+    usage: /wither reload
+    permission: ecoantiwither.reload
