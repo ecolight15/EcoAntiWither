@@ -1,3 +1,5 @@
+# MatchingType : StartsWith, equals, equalsIgnoreCase
+MatchingType: StartsWith
 DisableWorlds:
   - world1
   - world2

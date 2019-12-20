@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>jp.minecraftuser</groupId>
     <artifactId>EcoAntiWither</artifactId>
-    <version>0.3</version>
+    <version>0.4</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -50,7 +50,7 @@
         <repository>
             <id>eco-rep</id>
             <name>eco-rep</name>
-            <url>file://${project.build.directory}/deproy</url>
+            <url>file://${project.build.directory}/deploy</url>
         </repository>
     </distributionManagement>
 </project>

@@ -40,38 +40,65 @@ public class CreatureListener extends ListenerFrame{
     public void CreatureSpawn(CreatureSpawnEvent event)
     {
         LivingEntity ent = event.getEntity();
-        if ((ent.getType() == EntityType.WITHER) && 
-            (!(conf.getArrayList("DisableWorlds").contains(ent.getWorld().getName())))) {
-            StringBuilder sb = new StringBuilder(ChatColor.YELLOW.toString());
-            sb.append("[");
-            sb.append(plg.getName());
-            sb.append("] ウィザーの召喚をキャンセルしました。");
-            Location loc = ent.getLocation();
-            sb.append(loc.toString());
-            for (Player pl: plg.getServer().getOnlinePlayers()) {
-                if ((loc.getWorld().getName().equalsIgnoreCase(pl.getWorld().getName())) &&
-                    (loc.distance(pl.getLocation()) <= 5)) {
-                    sb.append(" 至近プレイヤー[");
-                    sb.append(pl.getName());
-                    sb.append("]");
+        if (ent.getType() == EntityType.WITHER) {
+            String type = conf.getString("MatchingType");
+            String name = ent.getWorld().getName();
+            boolean isCancel = false;
+            boolean hit = false;
+            if (type.equals("StartsWith")) {
+                // 先頭が一致するワールド名がなければキャンセル
+                for (String w : conf.getArrayList("DisableWorlds")) {
+                    if (w.startsWith(name)) {
+                        hit = true;
+                        break;
+                    }
                 }
+                if (!hit) isCancel = true;
+            } else if (type.equals("equals")) {
+                // 完全一致するワールド名がなければキャンセル
+                if (!(conf.getArrayList("DisableWorlds").contains(name))) isCancel = true;
+            } else if (type.equals("equalsIgnoreCase")) {
+                // 大文字小文字無視で完全一致するワールド名がなければキャンセル
+                for (String w : conf.getArrayList("DisableWorlds")) {
+                    if (w.equalsIgnoreCase(name)) {
+                        hit = true;
+                        break;
+                    }
+                }
+                if (!hit) isCancel = true;
             }
-            // 外部ファイルログ
-            try {
-                SimpleDateFormat sd = new SimpleDateFormat("[yyyy/MM/dd HH:mm:ss.SSS]");
-                File file = new File(plg.getDataFolder().getAbsolutePath()+"/wither_log.txt");
-                BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
-                String token_message = sd.format(new Date()) + sb.toString();
-                bw.write(token_message);
-                bw.newLine();
-                bw.close();
-            } catch (Exception ex) {
-                log.warning("ファイル書き込みエラー検知");
-                log.warning(ex.getLocalizedMessage());
-            }
+            if (isCancel) {
+                StringBuilder sb = new StringBuilder(ChatColor.YELLOW.toString());
+                sb.append("[");
+                sb.append(plg.getName());
+                sb.append("] ウィザーの召喚をキャンセルしました。");
+                Location loc = ent.getLocation();
+                sb.append(loc.toString());
+                for (Player pl: plg.getServer().getOnlinePlayers()) {
+                    if ((loc.getWorld().getName().equalsIgnoreCase(pl.getWorld().getName())) &&
+                        (loc.distance(pl.getLocation()) <= 5)) {
+                        sb.append(" 至近プレイヤー[");
+                        sb.append(pl.getName());
+                        sb.append("]");
+                    }
+                }
+                // 外部ファイルログ
+                try {
+                    SimpleDateFormat sd = new SimpleDateFormat("[yyyy/MM/dd HH:mm:ss.SSS]");
+                    File file = new File(plg.getDataFolder().getAbsolutePath()+"/wither_log.txt");
+                    BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
+                    String token_message = sd.format(new Date()) + sb.toString();
+                    bw.write(token_message);
+                    bw.newLine();
+                    bw.close();
+                } catch (Exception ex) {
+                    log.warning("ファイル書き込みエラー検知");
+                    log.warning(ex.getLocalizedMessage());
+                }
 
-            plg.getServer().broadcastMessage(sb.toString());
-            event.setCancelled(true);
+                plg.getServer().broadcastMessage(sb.toString());
+                event.setCancelled(true);
+            }
         }
     }
 }
