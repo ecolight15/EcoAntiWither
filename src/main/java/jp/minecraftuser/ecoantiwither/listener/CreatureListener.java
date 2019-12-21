@@ -47,8 +47,10 @@ public class CreatureListener extends ListenerFrame{
             boolean hit = false;
             if (type.equals("StartsWith")) {
                 // 先頭が一致するワールド名がなければキャンセル
+                log.info("StartsWithCheck:"+name);
                 for (String w : conf.getArrayList("DisableWorlds")) {
-                    if (w.startsWith(name)) {
+                    log.info("StartsWithChecklist:"+w);
+                    if (name.startsWith(w)) {
                         hit = true;
                         break;
                     }
@@ -60,7 +62,7 @@ public class CreatureListener extends ListenerFrame{
             } else if (type.equals("equalsIgnoreCase")) {
                 // 大文字小文字無視で完全一致するワールド名がなければキャンセル
                 for (String w : conf.getArrayList("DisableWorlds")) {
-                    if (w.equalsIgnoreCase(name)) {
+                    if (name.equalsIgnoreCase(w)) {
                         hit = true;
                         break;
                     }

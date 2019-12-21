@@ -36,6 +36,7 @@ public class EcoAntiWither extends PluginFrame{
     @Override
     public void initializeConfig() {
         EcoAntiWitherConfig conf = new EcoAntiWitherConfig(this);
+        conf.registerString("MatchingType");
         conf.registerArrayString("DisableWorlds");
         registerPluginConfig(conf);
     }
